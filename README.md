@@ -44,4 +44,4 @@ npm start
 ```
 9) A internet browser window will pop up, directing you to localhost:3000 and the terminal will display any warnings it has found
 10) If everything is working correctly, the Home page should render, with displays a welcome message and an array of Books and Authors. These Books and Authors are found on the Database, which is being accessed and controlled by the Node Backend started during step 5)
-11) Start Experimenting, change things, see what happens. Try and learn how React works asynchronously and the quirks of the render method :)
+11) Start Experimenting, change things, see what happens. Try and learn how React works asynchronously and the quirks of the render method :) 
