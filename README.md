@@ -10,7 +10,7 @@ Project developed by Michael Jeffcoat, Sam Ward and Tristam Archer
 ## Readme
 
 1) Open the folder "seer-project" in VisualStudioCode
-2) Create a folder file called .env
+2) Create a file called .env
 3) Populate this file with the entries located on our Trello board 
 ```
 PORT=5000 
