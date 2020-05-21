@@ -104,7 +104,7 @@ class Topbar extends Component {
     if (this.props.currentPath === "/home") {
       return 0;
     }
-    if (this.props.currentPath === "/dashboard") {
+    if (this.props.currentPath === "/search") {
       return 1;
     }
   };
