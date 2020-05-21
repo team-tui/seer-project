@@ -19,6 +19,7 @@ MONGODB_URI=""
 4) Open a terminal windows through VSC in the seer-project root folder (ie. D:\GitHub\seer-project\)
 5) Type the following command to start the Node backend (utilising Nodemon)
 ```
+npm install
 npm run dev
 ```
 6) The folowing output will be displayed
@@ -40,6 +41,7 @@ Established Mongoose Default Connection
 7)  Right click on Client in the VSC explorer window and click "Open in Terminal"
 8) In the newly created terminal instance, type the following command to start the React Frontend
 ```
+npm install
 npm start
 ```
 9) A internet browser window will pop up, directing you to localhost:3000 and the terminal will display any warnings it has found
