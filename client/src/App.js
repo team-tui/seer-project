@@ -1,36 +1,39 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-
-import About from './pages/About'
-import Home from './pages/Home'
-
+import React, { Component } from 'react';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles'
 import './App.css';
+import Routes from './routes'
+import { blue, indigo } from '@material-ui/core/colors'
 
-function App() {
-  return (
-    <Router>
+const theme = createMuiTheme({
+  palette: {
+    secondary: {
+      main: blue[900]
+    },
+    primary: {
+      main: indigo[700]
+    }
+  },
+  typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '"Lato"',
+      'sans-serif'
+    ].join(',')
+  }
+});
+
+
+class App extends Component {
+  render() {
+    return (
       <div>
-        <Link to="/">Home</Link>
-
-
-        <Link to="/about">About</Link>
-
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <ThemeProvider theme={theme}>
+          <Routes />
+        </ThemeProvider>
       </div>
-    </Router>
-  );
+    );
+  }
 }
 
 export default App;
