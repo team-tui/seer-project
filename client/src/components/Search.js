@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import API from '../utils/API';
 import InstructionDialog from "./dialogs/InstructionDialog";
 import Topbar from "./Topbar";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 import styles from "./styles/Styles"
 
 class Search extends Component {
@@ -19,7 +21,6 @@ class Search extends Component {
     title: '',
     author: ''
   };
-
 
   loadBooks = () => {
     API.getBooks()
@@ -45,6 +46,15 @@ class Search extends Component {
     const { classes } = this.props;
     const currentPath = this.props.location.pathname;
 
+    const options = [
+      { value: '[PH]test1', label: '[PH]testAuthor1'},
+      { value: '[PH]tes2', label: '[PH]testAuthor2'},
+      { value: '[PH]test3', label: '[PH]testAuthor3'},
+      { value: '[PH]tes4', label: '[PH]testAuthor4'}
+    ]
+    
+    const dropdown = makeAnimated();
+
     return (
       <React.Fragment>
         <CssBaseline />
@@ -67,8 +77,16 @@ class Search extends Component {
                           Search
                         </Typography>
                         <Typography variant="body1" gutterBottom>
-                          This is where the Searching Facility will be located
-                        </Typography>
+                          
+                        </Typography> 
+                        <Select 
+                          closeMenuOnSelect={false}
+                          components={dropdown}
+                          isMulti
+                          options = {options}
+                        />     
+                                        
+      
                       </div>
                     </div>
                   </Paper>
