@@ -17,7 +17,7 @@ describe('*********** BOOKS ***********', () => {
                     res.body.should.be.a('array')
                     done();
                 })
-        })
+        }).timeout(3000)
     })
 
     describe('/POST Request should add a new Book', () => {
