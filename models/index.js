@@ -19,3 +19,5 @@ mongoose.connection.on('error', err => {
 });
 
 mongoose.set('useFindAndModify', false);
+
+module.exports = mongoose

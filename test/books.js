@@ -94,3 +94,12 @@ describe('*********** BOOKS ***********', () => {
 
 
 })
+
+after(() => {
+    app.server.close(() => {
+        app.mongoose.connection.close();
+    });
+});
+
+
+
