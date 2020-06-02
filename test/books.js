@@ -17,7 +17,7 @@ describe('*********** ARTICLES ***********', () => {
                     res.body.should.be.a('array')
                     done();
                 })
-        })
+        }).timeout(5000)
     })
 
     describe('/POST Request should add a new article', () => {
@@ -102,3 +102,12 @@ describe('*********** ARTICLES ***********', () => {
 
 
 })
+
+after(() => {
+    app.server.close(() => {
+        app.mongoose.connection.close();
+    });
+});
+
+
+

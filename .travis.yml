@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "10"
+deploy:
+  provider: heroku
+  api_key:
+    secure: OrzQ72/N/W0olveJKSvQuGU9rUaAZqyqN5X1wxrBK3C53vUxi3nxsucrpUbyQZTyhhOcv9iz0UlM7R0+v8IePtBnzkQWl3xT2nx40tGXh6W390bPKAmFzq+tcmAa6on0RSTi5xhEBDBb+bld/ZXcE9t/oU5saKEiSfcfWgi3K5WYp11cM21e1Y+lXbYOHeVPnYLNYpEtXvCzeWOA99ejQx4H45W0iJhHwaleIGHyuCpgnFlrl+0q/0NB6bB4p4auZKpLeWs85CDccsgo9dIEMhYMjxxi9C+1UkP7kC27mK30lIRdZtFAspOkjuYPnZ/ueByiyGkcLED+WsMp57wGusAn/C0ZOVGryeORdfSAAXp5eRDYTgb/nLt4fX14U/DqgiCnEcWLIL58AU5192MJ+ErF5VAM9SDDv7liwJkiSUMytQeg5PNQH1Puoiy3+yaYwhQWA+y3WQg+W37kMAkSJ0y9nf0hhTHQbc3y/M7zjGoDdRZ0gE2EM+2nHGFd3yAM+4rsqXD+WLKxbEOdUmaLgQlzs5eIz+AwY2IvTCn1RkWb6FX6w49k4izLb41yGQYOfH1L5MDM69xgIlzhnKd0LVA8aYamfVtaLXBrXCNgjkFQQtn1SMYpRF62wqXqbIOXH4ypVCX/FjEfc5DvIhw6YarF7SfPWHkPVMkFQiKN4vM=
+  app: team-tui-seer-project
+  on:
+    repo: team-tui/seer-project
+  skip_cleanup: 'true'
