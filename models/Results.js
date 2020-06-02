@@ -1,12 +1,13 @@
+const mongoose = require('mongoose');
 const { Schema } = require('mongoose')
 
 const resultsSchema = new Schema(
     {
-        state: {
+        title: {
             type: String,
             required: true
         }
     }
 )
 
-module.exports = resultsSchema
+module.exports = mongoose.model('Result', resultsSchema);
