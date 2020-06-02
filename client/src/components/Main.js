@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Topbar from "./Topbar";
 import styles from "./styles/Styles"
 
-const tuiImage = require("../images/team-tui.jpg");
+const tuiImage = require("../images/team-tui.jpg"); //make tui shrink with window?
 
 
 class Main extends Component {

@@ -107,6 +107,15 @@ class Topbar extends Component {
     if (this.props.currentPath === "/search") {
       return 1;
     }
+    if (this.props.currentPath === "/testpage") {
+      return 2;
+    }
+    if (this.props.currentPath === "/testpage2") {
+      return 3;
+    }
+    if (this.props.currentPath === "/add") {
+      return 4;
+    }
   };
 
   render() {
@@ -115,7 +124,7 @@ class Topbar extends Component {
     return (
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
-          <Grid container spacing={10} alignItems="baseline">
+          <Grid container spacing={0} alignItems="baseline"> 
             <Grid item xs={12} className={classes.flex}>
               <div className={classes.inline}>
                 <Typography variant="h6" color="inherit" noWrap>
@@ -158,7 +167,7 @@ class Topbar extends Component {
                                 ? null
                                 : {
                                   pathname: item.pathname,
-                                  search: this.props.location.search
+                                   search: this.props.location.search 
                                 }
                             }
                             button
@@ -185,7 +194,7 @@ class Topbar extends Component {
                               ? null
                               : {
                                 pathname: item.pathname,
-                                search: this.props.location.search
+                                 search: this.props.location.search 
                               }
                           }
                           classes={{ root: classes.tabItem }}
