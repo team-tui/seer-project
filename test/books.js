@@ -28,7 +28,8 @@ describe('*********** ARTICLES ***********', () => {
                 date: "2020-05-29T03:48:57.605+00:00",
                 results: "Mocha is great",
                 url: "https://www.mocha.com",
-                status: {state : "SUBMITTED"}
+                status: {state : "SUBMITTED"},
+                type: "TDD"
             }
             chai
                 .request(app)
@@ -43,6 +44,7 @@ describe('*********** ARTICLES ***********', () => {
                     res.body.should.be.a.property('results')
                     res.body.should.be.a.property('url')
                     res.body.should.be.a.property('status')
+                    res.body.should.be.a.property('type')
                     id = res.body._id
                     done();
                 })

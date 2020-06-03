@@ -61,6 +61,7 @@ function stableSort(array, comparator) {
 
 /* Hard coded column headers */
 const headCells = [
+  { id: 'type', color: 'secondary', align: 'center', disablePadding: true, label: 'Type' },
   { id: 'title', color: 'secondary', align: 'center', disablePadding: true, label: 'Title' },
   { id: 'results', color: 'secondary', align: 'center', disablePadding: false, label: 'Result' },
   { id: 'author', color: 'secondary', align: 'center', disablePadding: false, label: 'Author' },
@@ -200,6 +201,9 @@ export default function EnhancedTable(props) {
                       tabIndex={-1}
                       key={row.name}
                     >
+                      <TableCell align="left">
+                        {row.type}
+                      </TableCell>
                        <TableCell align="left">
                         {row.title}
                       </TableCell>

@@ -21,6 +21,7 @@ class AddArticle extends Component {
     this.onChangeAuthor = this.onChangeAuthor.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onChangeUrl = this.onChangeUrl.bind(this);
+    this.onChangeType = this.onChangeType.bind(this);
     this.saveTutorial = this.saveTutorial.bind(this);
     this.newTutorial = this.newTutorial.bind(this);
 
@@ -32,7 +33,8 @@ class AddArticle extends Component {
         date: "",
         results: "",
         url: "",
-        status: {state : "SUBMITTED"}
+        status: {state : "SUBMITTED"},
+        type: ""
     };
   }
 
@@ -66,6 +68,12 @@ class AddArticle extends Component {
     });
   }
 
+  onChangeType(e) {
+    this.setState({
+      type: e.target.value
+    });
+  }
+
   saveTutorial() {
     var data = {
       title: this.state.title,
@@ -73,7 +81,8 @@ class AddArticle extends Component {
       author: this.state.author,
       date: this.state.date,
       url: this.state.url,
-      status: this.state.status
+      status: this.state.status,
+      type: this.state.type
     };
 
     API.create(data)
@@ -83,8 +92,9 @@ class AddArticle extends Component {
           author: response.data.author,
           results: response.data.results,
           date: response.data.date,
-          url: response.data.title,
-          status: response.data.status
+          url: response.data.url,
+          status: response.data.status,
+          type: response.data.type
         });
         console.log(response.data);
       })
@@ -100,7 +110,8 @@ class AddArticle extends Component {
       author: "",
       date: "",
       url: "",
-      status: "SUBMITTED"
+      status: "SUBMITTED",
+      type: ""
     });
   }
 
@@ -135,6 +146,19 @@ class AddArticle extends Component {
           ) : (
             <div>
               <div className="form-group">
+                <label htmlFor="type">Type</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="type"
+                  required
+                  value={this.state.type}
+                  onChange={this.onChangeType}
+                  name="type"
+                />
+              </div>
+
+              <div className="form-group">
                 <label htmlFor="title">Title</label>
                 <input
                   type="text"
@@ -148,7 +172,7 @@ class AddArticle extends Component {
               </div>
 
               <div className="form-group">
-                <label htmlFor="description">Description (Result?)</label>
+                <label htmlFor="description">Result</label>
                 <input
                   type="text"
                   className="form-control"

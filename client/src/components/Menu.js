@@ -4,7 +4,7 @@ const Menu = [
     pathname: "/"
   },
   {
-    label: "Search",
+    label: "Search Cards",
     pathname: "/search"
   },
   {
@@ -12,7 +12,7 @@ const Menu = [
     pathname: "/testpage"
   },
   {
-    label: "Test Page 2",
+    label: "Search Table",
     pathname: "/testpage2"
   }
   ,
