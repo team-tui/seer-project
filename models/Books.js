@@ -26,6 +26,10 @@ const articleSchema = new Schema({
  	status: {
 		type: statusSchema,
 		required: true
+	},
+	type: {
+		type: String,
+		required: true
 	}
 });
 

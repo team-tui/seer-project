@@ -16,5 +16,26 @@ export default {
     // Saves a book to the database
     saveBook: function (bookData) {
         return axios.post('/api/books', bookData);
-    }
+    },
+
+    // Deletes all books
+    deleteAllBooks: function (id) {
+        return axios.delete('/api/books/');
+    },
+
+    findByTitle (title) {
+        return axios.create({headers: {"Content-type": "application/json"}
+    }).get(`/api/books?title=${title}`);
+      },
+
+    findByTitle2: function (title) {
+        return axios.get('/api/books', 
+        {params: {title: title} })
+    },
+
+    create(data) {
+        return axios.post("/api/books", data);
+      }
+
+
 };

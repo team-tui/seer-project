@@ -2,7 +2,11 @@ const Book = require('../models/Books');
 
 module.exports = {
     findAll: function (req, res) {
-        Book.find(req.query)
+        const title = req.query.title;
+        var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+        //Book.find(title ? {title: title+"/i"} : {}) //Couldn't get to work
+        Book.find(condition)
+        //Book.find(req.query) //Original
             .then(books => res.json(books))
             .catch(err => res.status(422).json(err));
     },
