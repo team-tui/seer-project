@@ -5,7 +5,7 @@ const Menu = [
   },
   {
     label: "Search",
-    pathname: "/testpage2"
+    pathname: "/search"
   }
   ,
   {
