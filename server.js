@@ -17,7 +17,7 @@ app.use(routes);
 // Bootstrap server
 const server = app.listen(PORT, () => {
 	console.log(`Server listening on port ${PORT}.`);
-	console.log(`Hosting on: http://localhost:5000/`)
+	console.log(`Hosting on http://localhost:5000/`)
 });
 
 app.server = server;
