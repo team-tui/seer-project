@@ -3,13 +3,17 @@ and passes the result of search as an array to ArticleTable.
 Todo:
   Change search to use material UI
   Expand search to all columns - currently just title
+  Make search on pressing enter key?
+
+  **Possibly looking at breaking the search box into another componenet and 
+    importing to this page for modularity (similar to article table)
   
 Issues:
+
 */
 
 import React, { Component, useState } from "react";
 import API from '../utils/API';
-import { Link } from "react-router-dom";
 import ArticleTable from "./ArticleTable";
 
 //import {Input, Table, TableBody, TableCell } from '@material-ui/core';
@@ -26,28 +30,19 @@ import styles from "./styles/Styles"
 import InstructionDialog from "./dialogs/InstructionDialog";
 
 
-class ArticlesList extends Component {
+class SearchPage extends Component {
     constructor(props) {
       super(props);
       this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
       this.retrieveArticles = this.retrieveArticles.bind(this);
-      this.refreshList = this.refreshList.bind(this);
-      this.setActiveTutorial = this.setActiveTutorial.bind(this);
-      this.removeAllTutorials = this.removeAllTutorials.bind(this);
       this.searchTitle = this.searchTitle.bind(this);
   
       this.state = {
-        tutorials: [],
-        currentTutorial: null,
-        tutorialDialog: false,
-        currentIndex: -1,
-        //tutorialDate: "",
-        showInfo: false,
+        articles: [],
         searchTitle: ""
       };
     }
   
-
     componentDidMount() {
       this.retrieveArticles();
     }
@@ -60,25 +55,11 @@ class ArticlesList extends Component {
       });
     }
   
-  
-    toggleShow() {
-      this.setState({showInfo: !this.state.showInfo});
-  };
-  
-  showInfo() {
-    this.setState({showInfo: true});
-  };
-  
-  hideInfo = e => {
-    this.setState({showInfo: false});
-  };
-  
-  
     retrieveArticles() {
       API.getBooks()
         .then(response => {
           this.setState({
-            tutorials: response.data
+            articles: response.data
           });
           console.log(response.data);
         })
@@ -86,49 +67,12 @@ class ArticlesList extends Component {
           console.log(e);
         });
     }
-  
-    refreshList() {
-      this.retrieveArticles();
-      this.setState({
-        currentTutorial: null,
-        currentIndex: -1
-      });
-    }
-  
-    openTutorialDialog = event => {
-      this.setState({ tutorialDialog: true });
-    };
-  
-    closeTutorialDialog = event => {
-      this.setState({ tutorialDialog: false });
-    };
-  
-    setActiveTutorial(tutorial, index) {
-      //var tempDate = new Date(tutorial.date);
-  
-      this.setState({
-        currentTutorial: tutorial,
-        currentIndex: index,
-       // tutorialDate: tempDate
-      });
-    }
-  
-    removeAllTutorials() {
-      API.deleteAllBooks()
-        .then(response => {
-          console.log(response.data);
-          this.refreshList();
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    }
-  
+    
     searchTitle() {
       API.findByTitle(this.state.searchTitle)
         .then(response => {
           this.setState({
-            tutorials: response.data
+            articles: response.data
           });
           console.log(response.data);
         })
@@ -137,17 +81,9 @@ class ArticlesList extends Component {
         });
     }
 
-    createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
-      }
-    
-    
-
-
     render() {
-        const { searchTitle, tutorials, currentTutorial, currentIndex, 
-          tutorialDate} = this.state;
-        const { classes, onRequestSort} = this.props;
+        const { searchTitle, articles } = this.state;
+        const { classes } = this.props;
         const currentPath = this.props.location.pathname;
 
     
@@ -201,7 +137,7 @@ class ArticlesList extends Component {
                       </Paper>
                     </Grid>
     {/* Table */}
-    <ArticleTable ArticlesArray={tutorials}/>
+    <ArticleTable ArticlesArray={articles}/>
      </Grid>
               </Grid>
               </Grid>
@@ -209,4 +145,4 @@ class ArticlesList extends Component {
     </React.Fragment>
         );
                 }}
-    export default withRouter(withStyles(styles)(ArticlesList));
+    export default withRouter(withStyles(styles)(SearchPage));

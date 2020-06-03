@@ -13,7 +13,10 @@ Todo:
 
 Issues:
   Atm sort does alphabetically capital letter, then lowercase letter?
-    -Easy fix ensure format is the same ie. Author always starts with capital*/
+    -Easy fix ensure format is the same ie. Author always starts with capital
+  Sort on Results column will sort based on the FIRST result in string only
+    -not sure if this is good or bad? sorting all results of same article will 
+      spread that same article through the table which will look messy*/
 
 
 import React from 'react';
@@ -70,7 +73,7 @@ const headCells = [
   { id: 'info', color: 'secondary', align: 'center', disablePadding: false, label: 'Info' }
 ];
 
-function EnhancedTableHead(props) {
+function ArticleTableHead(props) {
   const { classes, order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -107,7 +110,7 @@ function EnhancedTableHead(props) {
   );
 }
 
-EnhancedTableHead.propTypes = {
+ArticleTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
@@ -127,6 +130,7 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 750,
   },
+  //fixing table height allows for vertical scroll bar and sticky headers 
   container : {
     maxHeight: 600,
   },
@@ -143,7 +147,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EnhancedTable(props) {
+export default function ArticleTable(props) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -183,10 +187,10 @@ export default function EnhancedTable(props) {
             className={classes.table}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
+            aria-label="article table"
             stickyHeader
           >
-            <EnhancedTableHead
+            <ArticleTableHead
               classes={classes}
               order={order}
               orderBy={orderBy}
@@ -205,23 +209,21 @@ export default function EnhancedTable(props) {
                       tabIndex={-1}
                       key={row.name}
                     >
-                      <TableCell align="left">
-                        {row.type}
-                      </TableCell>
-                       <TableCell align="left">
-                        {row.title}
-                      </TableCell>
-                      {/* <TableCell style={{whiteSpace: "pre"}} align="right">{row.description.replace(";", '\n')}</TableCell> */}
+                      <TableCell align="left">{row.type}</TableCell>
+                      <TableCell align="left">{row.title}</TableCell>
                       <TableCell style={{whiteSpace: "pre"}} align="right">{result}</TableCell>
                       <TableCell align="right">{row.author}</TableCell>
                       <TableCell align="right">{new Date(row.date).getFullYear()}</TableCell> 
-                      <TableCell align="center"><Button color="secondary" //variant="contained"
-                       onClick={() => window.open(row.url, "_blank")}>
-                         Link</Button></TableCell>
+                      <TableCell align="center">
+                        <Button color="secondary" //variant="contained"
+                        onClick={() => window.open(row.url, "_blank")}> Link
+                        </Button>
+                      </TableCell>
                       <TableCell align="center">
                         <Button color="primary" //variant="contained"
-                           onClick={() => window.open(row.url, "_blank")}> 
-                          Info</Button></TableCell>
+                            onClick={() => window.open(row.url, "_blank")}> Info
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   )));
                 })}
