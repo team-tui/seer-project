@@ -1,32 +1,14 @@
-/* This component contains the search function, 
-and passes the result of search as an array to ArticleTable.
-Todo:
-  Change search to use material UI
-  Expand search to all columns - currently just title
-  Make search on pressing enter key?
-
-  **Possibly looking at breaking the search box into another componenet and 
-    importing to this page for modularity (similar to article table)
-  
-Issues:
-
-*/
-
-import React, { Component, useState } from "react";
-import API from '../utils/API';
-import ArticleTable from "./ArticleTable";
-
-//import {Input, Table, TableBody, TableCell } from '@material-ui/core';
-
+import React, { Component } from "react";
 import withStyles from "@material-ui/styles/withStyles";
 import { withRouter, Link } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Topbar from "./Topbar";
-import { makeStyles } from '@material-ui/core/styles';
+import API from '../utils/API';
 import InstructionDialog from "./dialogs/InstructionDialog";
+import Topbar from "./Topbar";
 import styles from "./styles/Styles"
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
@@ -40,21 +22,28 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import IconButton from '@material-ui/core/IconButton';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
-class SearchPage extends Component {
+
+class Search extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-    this.retrieveArticles = this.retrieveArticles.bind(this);
-    this.searchTitle = this.searchTitle.bind(this);
     this.handleFromChange = this.handleFromChange.bind(this);
     this.handleToChange = this.handleToChange.bind(this);
-
     this.state = {
-      articles: [],
-      searchTitle: "",
-      name: '',
-      typingTimeout: 0,
+      loading: true,
+      bookDialog: false,
+      books: [],
+      title: '',
+      author: '',
       args: [{ nameOfFeild: "", operator: "", value: "" }],
       _nameOfField: '',
       _operator: '',
@@ -62,54 +51,21 @@ class SearchPage extends Component {
     };
   }
 
-  componentDidMount() {
-    this.retrieveArticles();
-  }
-
-  onChangeSearchTitle(e) {
-    const searchTitle = e;
-
-    this.setState({
-      searchTitle: searchTitle
-    });
-  }
-
-  retrieveArticles() {
+  loadBooks = () => {
     API.getBooks()
-      .then(response => {
-        this.setState({
-          articles: response.data
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
+      .then(res =>
+        this.setState({ books: res.data, title: '', author: '' })
+      )
+      .catch(err => console.log(err));
+  };
 
-  searchTitle() {
-    API.findByTitle(this.state.searchTitle)
-      .then(response => {
-        this.setState({
-          articles: response.data
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
+  SimpleSelect() {
+    const [nameOfFeild, setState] = React.useState('');
 
-  doSearch(evt){
-    this.onChangeSearchTitle(evt.target.value); // this is the search text
-    console.log(this.searchTitle)
-    if(this.timeout) clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-      //search function
-      this.searchTitle()
-    }, 300);
+    const handleDropdownChange = (event) => {
+      setState(event.target.value);
+    };
   }
-
 
   addForm = (e) => {
     this.setState((prevState) => ({
@@ -149,18 +105,15 @@ class SearchPage extends Component {
   }
 
   render() {
-    const { searchTitle, articles } = this.state;
     const { classes } = this.props;
     const currentPath = this.props.location.pathname;
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
     let { args } = this.state
 
-
     return (
       <React.Fragment>
         <CssBaseline />
-        {/* Menu */}
         <Topbar currentPath={currentPath} />
         <div className={classes.root}>
           <Grid container justify="center">
@@ -171,13 +124,12 @@ class SearchPage extends Component {
               container
               className={classes.grid}
             >
-              {/* Search */}
               <Grid container item xs={12}>
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
                     <div className={classes.box}>
                       <Typography color="secondary" gutterBottom align='center'>
-                        SEARCH
+                        Search.
                         </Typography>
                     </div>
                     <div>
@@ -189,7 +141,6 @@ class SearchPage extends Component {
                         fullWidth
                         margin="normal"
                         InputLabelProps={{ shrink: true, }}
-                        onChange={evt => this.doSearch(evt)}
                       />
                     </div>
                     <Typography color="secondary" gutterBottom align='center'>
@@ -278,62 +229,62 @@ class SearchPage extends Component {
                             return (
                               <div key={idx}>
                                 <FormControl className={classes.formControl}>
-                                  <NativeSelect
-                                    value={this._nameOfField}
-                                    name="Name of Field"
-                                    displayEmpty
-                                    onChange={this.handleChange}
-                                    inputProps={{ 'aria-label': '_nameOfField' }}
-                                  >
-                                    <option value="" disabled>
-                                      Name of Field
+                                <NativeSelect
+                                  value={this._nameOfField}
+                                  name="Name of Field"
+                                  displayEmpty
+                                  onChange={this.handleChange}
+                                  inputProps={{ 'aria-label': '_nameOfField' }}
+                                >
+                                  <option value="" disabled>
+                                    Name of Field
           </option>
-                                    <option value={10}>Method</option>
-                                    <option value={20}>Benefit</option>
-                                    <option value={30}>Participants</option>
-                                  </NativeSelect>
-                                  <FormHelperText>Name of Field</FormHelperText>
+                                  <option value={10}>Method</option>
+                                  <option value={20}>Benefit</option>
+                                  <option value={30}>Participants</option>
+                                </NativeSelect>
+                                <FormHelperText>Name of Field</FormHelperText>
                                 </FormControl>
                                 <FormControl className={classes.formControl}>
-                                  <NativeSelect
-                                    value={this._operator}
-                                    name="Operator"
-                                    onChange={this.handleChange}
-                                    inputProps={{ 'aria-label': '_operator' }}
-                                  >
-                                    <option value="" disabled>
-                                      Operator
+                                <NativeSelect
+                                  value={this._operator}
+                                  name="Operator"
+                                  onChange={this.handleChange}
+                                  inputProps={{ 'aria-label': '_operator' }}
+                                >
+                                  <option value="" disabled>
+                                    Operator
           </option>
-                                    <option value={10}>is equal to</option>
-                                    <option value={20}>contains</option>
-                                    <option value={30}>does not contain</option>
-                                    <option value={40}>begins with</option>
-                                    <option value={50}>ends with</option>
-                                  </NativeSelect>
-                                  <FormHelperText>Operator</FormHelperText>
+                                  <option value={10}>is equal to</option>
+                                  <option value={20}>contains</option>
+                                  <option value={30}>does not contain</option>
+                                  <option value={40}>begins with</option>
+                                  <option value={50}>ends with</option>
+                                </NativeSelect>
+                                <FormHelperText>Operator</FormHelperText>
                                 </FormControl>
                                 <FormControl className={classes.formControl}>
-                                  <NativeSelect
-                                    value={this._Value}
-                                    name="Value"
-                                    displayEmpty
-                                    onChange={this.handleChange}
-                                    inputProps={{ 'aria-label': '_value' }}
-                                  >
-                                    <option value="" disabled>
-                                      Value
+                                <NativeSelect
+                                  value={this._Value}
+                                  name="Value"
+                                  displayEmpty
+                                  onChange={this.handleChange}
+                                  inputProps={{ 'aria-label': '_value' }}
+                                >
+                                  <option value="" disabled>
+                                    Value
           </option>
-                                    <option value={10}>OOP</option>
-                                    <option value={20}>TDD</option>
-                                    <option value={30}>Performance</option>
-                                    <option value={40}>Practitioner</option>
-                                  </NativeSelect>
-                                  <FormHelperText>Value</FormHelperText>
+                                  <option value={10}>OOP</option>
+                                  <option value={20}>TDD</option>
+                                  <option value={30}>Performance</option>
+                                  <option value={40}>Practitioner</option>
+                                </NativeSelect>
+                                <FormHelperText>Value</FormHelperText>
                                 </FormControl>
                                 <FormControl className={classes.formControl}>
-                                  <IconButton aria-label="add" className={classes.margin} size="small" onClick={this.addForm}>
-                                    <AddCircleOutlineIcon fontSize="inherit" />
-                                  </IconButton>
+                                <IconButton aria-label="add" className={classes.margin} size="small" onClick={this.addForm}>
+                                  <AddCircleOutlineIcon fontSize="inherit" />
+                                </IconButton>
                                 </FormControl>
 
                               </div>
@@ -344,15 +295,18 @@ class SearchPage extends Component {
                       </div>
                     </div>
                   </Paper>
-                </Grid>
-                {/* Table */}
-                <ArticleTable ArticlesArray={articles} />
+                </Grid>                
               </Grid>
             </Grid>
           </Grid>
+          <InstructionDialog
+            open={this.state.bookDialog}
+            onClose={this.closeBookDialog}
+          />
         </div>
       </React.Fragment>
     );
   }
 }
-export default withRouter(withStyles(styles)(SearchPage));
+
+export default withRouter(withStyles(styles)(Search));
