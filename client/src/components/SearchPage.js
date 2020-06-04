@@ -15,6 +15,7 @@ Issues:
 import React, { Component, useState } from "react";
 import API from '../utils/API';
 import ArticleTable from "./ArticleTable";
+import ArticleTableTest from "./ArticleTableTest";
 
 //import {Input, Table, TableBody, TableCell } from '@material-ui/core';
 
@@ -346,7 +347,7 @@ class SearchPage extends Component {
                   </Paper>
                 </Grid>
                 {/* Table */}
-                <ArticleTable ArticlesArray={articles} />
+                <ArticleTableTest ArticlesArray={articles} />
               </Grid>
             </Grid>
           </Grid>
