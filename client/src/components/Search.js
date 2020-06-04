@@ -6,7 +6,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import API from '../utils/API';
 import InstructionDialog from "./dialogs/InstructionDialog";
 import Topbar from "./Topbar";
@@ -86,19 +85,6 @@ class Search extends Component {
       this.setState({ [e.target.name]: e.target.value })
     }
   }
-
-
-  componentDidMount() {
-    this.loadBooks();
-  }
-
-  openBookDialog = event => {
-    this.setState({ bookDialog: true });
-  };
-
-  closeBookDialog = event => {
-    this.setState({ bookDialog: false });
-  };
 
   showFromMonth() {
     const { from, to } = this.state;
@@ -309,43 +295,8 @@ class Search extends Component {
                       </div>
                     </div>
                   </Paper>
-                </Grid>
-                {this.state.books.length ? (
-                  this.state.books.map(book => (
-                    <Grid item xs={6}>
-                      <Paper className={classes.paper}>
-                        <div className={classes.box}>
-                          <Typography
-                            style={{ textTransform: "uppercase" }}
-                            color="secondary"
-                            gutterBottom
-                          >
-                            {book.title}
-                          </Typography>
-                          <Typography variant="body2" gutterBottom>
-                            Author: {book.author}
-                          </Typography>
-                        </div>
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <Button
-                            onClick={this.openBookDialog}
-                            color="primary"
-                            variant="contained"
-                            className={classes.actionButtom}
-                          >
-                            Learn more
-                    </Button>
-                        </div>
-                      </Paper>
-                    </Grid>
-                  ))
-                ) : (
-                    <Typography color="body1" gutterBottom>
-                      No Results to Display
-                    </Typography>
-                  )}
+                </Grid>                
               </Grid>
-
             </Grid>
           </Grid>
           <InstructionDialog
