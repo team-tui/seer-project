@@ -1,6 +1,12 @@
+
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI);
+
+
+mongoose.connect(process.env.MONGODB_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+});
 
 // When successfully connected
 mongoose.connection.on('connected', () => {
@@ -11,3 +17,7 @@ mongoose.connection.on('connected', () => {
 mongoose.connection.on('error', err => {
     console.log('Mongoose Default Connection Error : ' + err);
 });
+
+mongoose.set('useFindAndModify', false);
+
+module.exports = mongoose

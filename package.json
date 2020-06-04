@@ -7,15 +7,18 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "server": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "heroku-postbuild": "cd client && npm install -only=dev && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mocha": "^7.2.0",
     "mongoose": "^5.9.7"
   },
   "devDependencies": {

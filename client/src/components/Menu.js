@@ -7,6 +7,11 @@ const Menu = [
     label: "Search",
     pathname: "/search"
   }
+  ,
+  {
+    label: "Add Article",
+    pathname: "/add"
+  }
 ];
 
 export default Menu;
