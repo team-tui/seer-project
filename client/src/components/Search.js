@@ -23,6 +23,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import IconButton from '@material-ui/core/IconButton';
+import NativeSelect from '@material-ui/core/NativeSelect';
 
 
 class Search extends Component {
@@ -36,6 +39,10 @@ class Search extends Component {
       books: [],
       title: '',
       author: '',
+      args: [{ nameOfFeild: "", operator: "", value: "" }],
+      _nameOfField: '',
+      _operator: '',
+      _value: ''
     };
   }
 
@@ -48,16 +55,32 @@ class Search extends Component {
   };
 
   SimpleSelect() {
-    const [age, setAge] = React.useState('');
+    const [nameOfFeild, setState] = React.useState('');
 
-    const handleChange = (event) => {
-      setAge(event.target.value);
+    const handleDropdownChange = (event) => {
+      setState(event.target.value);
     };
   }
 
-  LayoutTextFields() {
-    const classes = this.useStyles();
+  addForm = (e) => {
+    this.setState((prevState) => ({
+      args: [...prevState.args, { nameOfFeild: "", operator: "", value: "" }],
+    }));
   }
+
+  handleSubmit = (e) => { e.preventDeafult() }
+
+  handleChange = (e) => {
+    if (["nameOfFeild", "operator", "value"].includes(e.target.className)) {
+      let args = [...this.state.args]
+      args[e.target.dataset.id][e.target.className] = e.target.value
+      this.setState({ args }, () => console.log(this.state.cats))
+
+    } else {
+      this.setState({ [e.target.name]: e.target.value })
+    }
+  }
+
 
   componentDidMount() {
     this.loadBooks();
@@ -94,6 +117,7 @@ class Search extends Component {
     const currentPath = this.props.location.pathname;
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
+    let { args } = this.state
 
     return (
       <React.Fragment>
@@ -111,10 +135,9 @@ class Search extends Component {
               <Grid container item xs={12}>
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
-                    <div>
                       <div className={classes.box}>
-                        <Typography color="secondary" gutterBottom>
-                          Search
+                        <Typography color="secondary" gutterBottom align='center'>
+                          Search.
                         </Typography>
                       </div>
                       <div>
@@ -128,6 +151,10 @@ class Search extends Component {
                           InputLabelProps={{ shrink: true, }}
                         />
                       </div>
+                      <Typography color="secondary" gutterBottom align='center'>
+                        Dates between
+                      </Typography>
+
                       <div style={{
                         display: "flex",
                         justifyContent: "center",
@@ -203,67 +230,77 @@ class Search extends Component {
                         justifyContent: "center",
                         alignItems: "center"
                       }}>
-                        
+                        {
+                          args.map((val, idx) => {
+                            let argsID = 'args-${idx}', nameOfField = 'nameOdField-${idx}'
+                            return (
+                              <div key={idx}>
+                                <NativeSelect
+                                  className={classes.selectEmpty}
+                                  value={this._nameOfField}
+                                  name="Name of Field"
+                                  onChange={this.handleChange}
+                                  inputProps={{ 'aria-label': '_nameOfField' }}
+                                >
+                                  <option value="" disabled>
+                                    Name of Field
+          </option>
+                                  <option value={10}>Method</option>
+                                  <option value={20}>Benefit</option>
+                                  <option value={30}>Participants</option>
+                                </NativeSelect>
+                                <FormHelperText>Name of Field</FormHelperText>
 
-                        <FormControl className={classes.formControl}>
-                          <Select
-                            value="{this.age}"
-                            onChange={this.handleChange}
-                            displayEmpty
-                            className={classes.selectEmpty}
-                            inputProps={{ 'aria-label': 'Without label' }}
-                          >
-                            <MenuItem value="" disabled>
-                              Name of Field
-          </MenuItem>
-                            <MenuItem value={10}>Test1</MenuItem>
-                            <MenuItem value={20}>Test2</MenuItem>
-                            <MenuItem value={30}>Test3</MenuItem>
-                          </Select>
-                          <FormHelperText>Name of Field</FormHelperText>
-                        </FormControl>
+                                <NativeSelect
+                                  className={classes.selectEmpty}
+                                  value={this._operator}
+                                  name="Operator"
+                                  onChange={this.handleChange}
+                                  inputProps={{ 'aria-label': '_operator' }}
+                                >
+                                  <option value="" disabled>
+                                    Operator
+          </option>
+                                  <option value={10}>is equal to</option>
+                                  <option value={20}>contains</option>
+                                  <option value={30}>does not contain</option>
+                                  <option value={40}>begins with</option>
+                                  <option value={50}>ends with</option>
+                                </NativeSelect>
+                                <FormHelperText>Operator</FormHelperText>
 
-                        <FormControl className={classes.formControl}>
-                          <Select
-                            value="{this.age}"
-                            onChange={this.handleChange}
-                            displayEmpty
-                            className={classes.selectEmpty}
-                            inputProps={{ 'aria-label': 'Without label' }}
-                          >
-                            <MenuItem value="" disabled>
-                              Name of Field
-          </MenuItem>
-                            <MenuItem value={1}>contains</MenuItem>
-                            <MenuItem value={2}>does not contain</MenuItem>
-                            <MenuItem value={3}>begins with</MenuItem>
-                            <MenuItem value={4}>ends with</MenuItem>
-                            <MenuItem value={5}>is equal to</MenuItem>
-                          </Select>
-                          <FormHelperText>Operator</FormHelperText>
-                        </FormControl>
+                                <NativeSelect
+                                  className={classes.selectEmpty}
+                                  value={this._Value}
+                                  name="Value"
+                                  onChange={this.handleChange}
+                                  inputProps={{ 'aria-label': '_value' }}
+                                >
+                                  <option value="" disabled>
+                                    Value
+          </option>
+                                  <option value={10}></option>
+                                  <option value={20}>TDD</option>
+                                  <option value={30}>Performance</option>
+                                  <option value={40}>Practitioner</option>
+                                </NativeSelect>
+                                <FormHelperText>Value</FormHelperText>
 
-                        <FormControl className={classes.formControl}>
-                          <Select
-                            value="{this.age}"
-                            onChange={this.handleChange}
-                            displayEmpty
-                            className={classes.selectEmpty}
-                            inputProps={{ 'aria-label': 'Without label' }}
-                          >
-                            <MenuItem value="" disabled>
-                              Name of Field
-          </MenuItem>
-                            <MenuItem value={10}>Test1</MenuItem>
-                            <MenuItem value={20}>Test2</MenuItem>
-                            <MenuItem value={30}>Test3</MenuItem>
-                          </Select>
-                          <FormHelperText>Value</FormHelperText>
-                        </FormControl>
+                                <IconButton aria-label="add" className={classes.margin} size="small" onClick={this.addForm}>
+                                  <AddCircleOutlineIcon fontSize="inherit" />
+                                </IconButton>
+
+                              </div>
+                            )
+
+                          })
+                        }
+
+
+
 
 
                       </div>
-                    </div>
                   </Paper>
                 </Grid>
                 {this.state.books.length ? (
