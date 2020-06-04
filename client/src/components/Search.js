@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import withStyles from "@material-ui/styles/withStyles";
 import { withRouter, Link } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -9,23 +10,28 @@ import Button from "@material-ui/core/Button";
 import API from '../utils/API';
 import InstructionDialog from "./dialogs/InstructionDialog";
 import Topbar from "./Topbar";
-import makeAnimated from "react-select/animated";
 import styles from "./styles/Styles"
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
 import { Helmet } from "react-helmet"
 import DayPickerInput from 'react-day-picker/DayPickerInput';
+import FormControl from '@material-ui/core/FormControl';
 import 'react-day-picker/lib/style.css';
 import { formatDate, parseDate } from 'react-day-picker/moment';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import IconButton from '@material-ui/core/IconButton';
 import NativeSelect from '@material-ui/core/NativeSelect';
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 
 class Search extends Component {
@@ -135,69 +141,69 @@ class Search extends Component {
               <Grid container item xs={12}>
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
-                      <div className={classes.box}>
-                        <Typography color="secondary" gutterBottom align='center'>
-                          Search.
-                        </Typography>
-                      </div>
-                      <div>
-                        <TextField
-                          id="descr_search"
-                          type="search"
-                          style={{ margin: 8 }}
-                          placeholder="Enter description here here..."
-                          fullWidth
-                          margin="normal"
-                          InputLabelProps={{ shrink: true, }}
-                        />
-                      </div>
+                    <div className={classes.box}>
                       <Typography color="secondary" gutterBottom align='center'>
-                        Dates between
+                        Search.
+                        </Typography>
+                    </div>
+                    <div>
+                      <TextField
+                        id="descr_search"
+                        type="search"
+                        style={{ margin: 8 }}
+                        placeholder="Enter description here here..."
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{ shrink: true, }}
+                      />
+                    </div>
+                    <Typography color="secondary" gutterBottom align='center'>
+                      Dates between
                       </Typography>
 
-                      <div style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"
-                      }}>
+                    <div style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}>
+                      <DayPickerInput
+                        value={from}
+                        placeholder="From"
+                        format="LL"
+                        formatDate={formatDate}
+                        parseDate={parseDate}
+                        dayPickerProps={{
+                          selectedDays: [from, { from, to }],
+                          disabledDays: { after: to },
+                          toMonth: to,
+                          modifiers,
+                          numberOfMonths: 2,
+                          onDayClick: () => this.to.getInput().focus(),
+                        }}
+                        onDayChange={this.handleFromChange}
+                      />{' '}
+        —{' '}
+                      <span className="InputFromTo-to">
                         <DayPickerInput
-                          value={from}
-                          placeholder="From"
+                          ref={el => (this.to = el)}
+                          value={to}
+                          placeholder="To"
                           format="LL"
                           formatDate={formatDate}
                           parseDate={parseDate}
                           dayPickerProps={{
                             selectedDays: [from, { from, to }],
-                            disabledDays: { after: to },
-                            toMonth: to,
+                            disabledDays: { before: from },
                             modifiers,
+                            month: from,
+                            fromMonth: from,
                             numberOfMonths: 2,
-                            onDayClick: () => this.to.getInput().focus(),
                           }}
-                          onDayChange={this.handleFromChange}
-                        />{' '}
-        —{' '}
-                        <span className="InputFromTo-to">
-                          <DayPickerInput
-                            ref={el => (this.to = el)}
-                            value={to}
-                            placeholder="To"
-                            format="LL"
-                            formatDate={formatDate}
-                            parseDate={parseDate}
-                            dayPickerProps={{
-                              selectedDays: [from, { from, to }],
-                              disabledDays: { before: from },
-                              modifiers,
-                              month: from,
-                              fromMonth: from,
-                              numberOfMonths: 2,
-                            }}
-                            onDayChange={this.handleToChange}
-                          />
-                        </span>
-                        <Helmet>
-                          <style>{`
+                          onDayChange={this.handleToChange}
+                        />
+                      </span>
+                      <Helmet>
+                        <style>{`
   .InputFromTo .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
     background-color: #f0f8ff !important;
     color: #4a90e2;
@@ -220,25 +226,27 @@ class Search extends Component {
     margin-left: -198px;
   }
 `}</style>
-                        </Helmet>
+                      </Helmet>
 
-                      </div>
+                    </div>
 
 
-                      <div style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"
-                      }}>
+                    <div style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}>
+                      <div>
                         {
                           args.map((val, idx) => {
                             let argsID = 'args-${idx}', nameOfField = 'nameOdField-${idx}'
                             return (
                               <div key={idx}>
+                                <FormControl className={classes.formControl}>
                                 <NativeSelect
-                                  className={classes.selectEmpty}
                                   value={this._nameOfField}
                                   name="Name of Field"
+                                  displayEmpty
                                   onChange={this.handleChange}
                                   inputProps={{ 'aria-label': '_nameOfField' }}
                                 >
@@ -250,9 +258,9 @@ class Search extends Component {
                                   <option value={30}>Participants</option>
                                 </NativeSelect>
                                 <FormHelperText>Name of Field</FormHelperText>
-
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
                                 <NativeSelect
-                                  className={classes.selectEmpty}
                                   value={this._operator}
                                   name="Operator"
                                   onChange={this.handleChange}
@@ -268,39 +276,38 @@ class Search extends Component {
                                   <option value={50}>ends with</option>
                                 </NativeSelect>
                                 <FormHelperText>Operator</FormHelperText>
-
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
                                 <NativeSelect
-                                  className={classes.selectEmpty}
                                   value={this._Value}
                                   name="Value"
+                                  displayEmpty
                                   onChange={this.handleChange}
                                   inputProps={{ 'aria-label': '_value' }}
                                 >
                                   <option value="" disabled>
                                     Value
           </option>
-                                  <option value={10}></option>
+                                  <option value={10}>OOP</option>
                                   <option value={20}>TDD</option>
                                   <option value={30}>Performance</option>
                                   <option value={40}>Practitioner</option>
                                 </NativeSelect>
                                 <FormHelperText>Value</FormHelperText>
-
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
                                 <IconButton aria-label="add" className={classes.margin} size="small" onClick={this.addForm}>
                                   <AddCircleOutlineIcon fontSize="inherit" />
                                 </IconButton>
+                                </FormControl>
 
                               </div>
                             )
 
                           })
                         }
-
-
-
-
-
                       </div>
+                    </div>
                   </Paper>
                 </Grid>
                 {this.state.books.length ? (
