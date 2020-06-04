@@ -15,6 +15,7 @@ Issues:
 import React, { Component, useState } from "react";
 import API from '../utils/API';
 import ArticleTable from "./ArticleTable";
+import ArticleTableTest from "./ArticleTableTest";
 
 //import {Input, Table, TableBody, TableCell } from '@material-ui/core';
 
@@ -163,17 +164,17 @@ class SearchPage extends Component {
         {/* Menu */}
         <Topbar currentPath={currentPath} />
         <div className={classes.root}>
-          <Grid container justify="center">
-            <Grid
+ {/*          <Grid container justify="center"> */}
+{/*             <Grid
               spacing={10}
               alignItems="center"
               justify="center"
               container
               className={classes.grid}
-            >
+            > */}
               {/* Search */}
-              <Grid container item xs={12}>
-                <Grid item xs={12}>
+              <Grid container item xs={12} justify="center">
+                <Grid item xs={8}>
                   <Paper className={classes.paper}>
                     <div className={classes.box}>
                       <Typography color="secondary" gutterBottom align='center'>
@@ -344,12 +345,12 @@ class SearchPage extends Component {
                       </div>
                     </div>
                   </Paper>
-                </Grid>
+                </Grid><Grid item xs={11}>
                 {/* Table */}
-                <ArticleTable ArticlesArray={articles} />
-              </Grid>
-            </Grid>
-          </Grid>
+                <ArticleTableTest ArticlesArray={articles} />
+              </Grid></Grid>
+{/*             </Grid>
+          </Grid> */}
         </div>
       </React.Fragment>
     );
