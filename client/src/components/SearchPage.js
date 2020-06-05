@@ -101,13 +101,12 @@ class SearchPage extends Component {
   }
 
   doSearch(evt){
-    this.onChangeSearchTitle(evt.target.value); // this is the search text
+    this.onChangeSearchTitle(evt.target.value);
     console.log(this.searchTitle)
     if(this.timeout) clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
-      //search function
       this.searchTitle()
-    }, 300);
+    }, 1);
   }
 
 
