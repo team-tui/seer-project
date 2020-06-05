@@ -23,14 +23,14 @@ export default {
         return axios.delete('/api/books/');
     },
 
-    findByTitle (title) {
+     findByTitle (title, author) {
         return axios.create({headers: {"Content-type": "application/json"}
-    }).get(`/api/books?title=${title}`);
-      },
+    }).get(`/api/books?title=${title}&author=${author}`);
+      }, 
 
-    findByTitle2: function (title) {
+    findByTitle2: function (title, author, dateFrom, dateTo) {
         return axios.get('/api/books', 
-        {params: {title: title} })
+        {params: { title: title,  author: author, dateFrom: dateFrom, dateTo: dateTo} })
     },
 
     create(data) {
