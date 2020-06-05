@@ -28,9 +28,9 @@ export default {
     }).get(`/api/books?title=${title}`);
       },
 
-    findByTitle2: function (title) {
+    findByTitle2: function (title, dateFrom, dateTo) {
         return axios.get('/api/books', 
-        {params: {title: title} })
+        {params: { title: title,  /* author: author, */ dateFrom: dateFrom, dateTo: dateTo} })
     },
 
     create(data) {

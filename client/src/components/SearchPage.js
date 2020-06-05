@@ -40,6 +40,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import IconButton from '@material-ui/core/IconButton';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import Button from "@material-ui/core/Button";
 
 
 class SearchPage extends Component {
@@ -53,13 +54,15 @@ class SearchPage extends Component {
 
     this.state = {
       articles: [],
-      searchTitle: "",
+      searchTitle: " ",
       name: '',
       typingTimeout: 0,
       args: [{ nameOfFeild: "", operator: "", value: "" }],
       _nameOfField: '',
       _operator: '',
-      _value: ''
+      _value: '',
+      dateFrom: new Date().setFullYear(1950),
+      dateTo: Date.now()
     };
   }
 
@@ -89,7 +92,7 @@ class SearchPage extends Component {
   }
 
   searchTitle() {
-    API.findByTitle(this.state.searchTitle)
+    API.findByTitle2(this.state.searchTitle, this.state.dateFrom, this.state.dateTo)
       .then(response => {
         this.setState({
           articles: response.data
@@ -107,7 +110,7 @@ class SearchPage extends Component {
     if(this.timeout) clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
       //search function
-      this.searchTitle()
+      //this.searchTitle()
     }, 300);
   }
 
@@ -142,11 +145,17 @@ class SearchPage extends Component {
   }
 
   handleFromChange(from) {
-    this.setState({ from });
+   /*  this.setState({ from }); */
+    this.setState({
+      dateFrom: from
+    });
   }
 
   handleToChange(to) {
-    this.setState({ to }, this.showFromMonth);
+    this.setState({
+      dateTo: to
+    }, this.showFromMonth);
+/*     this.setState({ to }, this.showFromMonth); */
   }
 
   render() {
@@ -186,12 +195,14 @@ class SearchPage extends Component {
                         id="descr_search"
                         type="search"
                         style={{ margin: 8 }}
-                        placeholder="Enter description here here..."
+                        placeholder="Enter description here..."
                         fullWidth
                         margin="normal"
                         InputLabelProps={{ shrink: true, }}
-                        onChange={evt => this.doSearch(evt)}
-                      />
+                         onChange={evt => this.doSearch(evt)}
+                      /><Button onClick={() => this.searchTitle()}>
+                        Search
+                      </Button>
                     </div>
                     <Typography color="secondary" gutterBottom align='center'>
                       Dates between
