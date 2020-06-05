@@ -3,7 +3,13 @@ const Book = require('../models/Books');
 module.exports = {
     findAll: function (req, res) {
         const title = req.query.title;
-        var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+        //const author =  req.query.author;
+        const dateFrom = req.query.dateFrom;
+        const dateTo = req.query.dateTo;
+        var condition = title ? { title: { $regex: new RegExp(title), $options: "i" }, 
+                                    /* author: {$regex: new RegExp(author), $options: "i"}, */
+                                    $and: [{date: {$lte: dateTo}},{date: {$gte: dateFrom}}]} 
+                                    : {};
         //Book.find(title ? {title: title+"/i"} : {}) //Couldn't get to work
         Book.find(condition)
         //Book.find(req.query) //Original

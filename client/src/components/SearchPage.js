@@ -59,7 +59,9 @@ class SearchPage extends Component {
       args: [{ nameOfFeild: "", operator: "", value: "" }],
       _nameOfField: '',
       _operator: '',
-      _value: ''
+      _value: '',
+      dateFrom: '',
+      dateTo: ''
     };
   }
 
@@ -89,7 +91,7 @@ class SearchPage extends Component {
   }
 
   searchTitle() {
-    API.findByTitle(this.state.searchTitle)
+    API.findByTitle2(this.state.searchTitle, this.state.dateFrom, this.state.dateTo)
       .then(response => {
         this.setState({
           articles: response.data
@@ -142,11 +144,17 @@ class SearchPage extends Component {
   }
 
   handleFromChange(from) {
-    this.setState({ from });
+   /*  this.setState({ from }); */
+    this.setState({
+      dateFrom: from
+    });
   }
 
   handleToChange(to) {
-    this.setState({ to }, this.showFromMonth);
+    this.setState({
+      dateTo: to
+    }, this.showFromMonth);
+/*     this.setState({ to }, this.showFromMonth); */
   }
 
   render() {
