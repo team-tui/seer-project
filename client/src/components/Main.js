@@ -6,37 +6,34 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Topbar from "./Topbar";
-import styles from "./styles/Styles"
+import styles from "./styles/Styles";
 
 const tuiImage = require("../images/team-tui.jpg"); //make tui shrink with window?
-
 
 class Main extends Component {
   state = {
     learnMoredialog: false,
     getStartedDialog: false,
     articles: [],
-    title: '',
-    author: ''
-
+    title: "",
+    author: "",
   };
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
-  openDialog = event => {
+  openDialog = (event) => {
     this.setState({ learnMoredialog: true });
   };
 
-  dialogClose = event => {
+  dialogClose = (event) => {
     this.setState({ learnMoredialog: false });
   };
 
-  openGetStartedDialog = event => {
+  openGetStartedDialog = (event) => {
     this.setState({ getStartedDialog: true });
   };
 
-  closeGetStartedDialog = event => {
+  closeGetStartedDialog = (event) => {
     this.setState({ getStartedDialog: false });
   };
 
@@ -64,8 +61,8 @@ class Main extends Component {
                           Welcome
                         </Typography>
                         <Typography variant="body1" gutterBottom>
-                          Welcome to the SEER Research Searching Tool
-                          This is our Home page
+                          Welcome to the SEER Research Searching Tool This is
+                          our Home page
                         </Typography>
                       </div>
                     </div>
@@ -75,7 +72,11 @@ class Main extends Component {
                   <Paper className={classes.paper}>
                     <div>
                       <div className={classes.box}>
-                        <img className={classes.img} src={tuiImage} alt={"Tui's are lit"} />
+                        <img
+                          className={classes.img}
+                          src={tuiImage}
+                          alt={"Tui's are lit"}
+                        />
                       </div>
                     </div>
                   </Paper>

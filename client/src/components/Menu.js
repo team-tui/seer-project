@@ -1,17 +1,16 @@
 const Menu = [
   {
     label: "Home",
-    pathname: "/"
+    pathname: "/",
   },
   {
     label: "Search",
-    pathname: "/search"
-  }
-  ,
+    pathname: "/search",
+  },
   {
     label: "Add Article",
-    pathname: "/add"
-  }
+    pathname: "/add",
+  },
 ];
 
 export default Menu;

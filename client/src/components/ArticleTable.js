@@ -18,22 +18,21 @@ Issues:
     -not sure if this is good or bad? sorting all results of same article will 
       spread that same article through the table which will look messy*/
 
-
-import React from 'react';
-import PropTypes from 'prop-types';
-import {makeStyles} from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
 
 function descendingComparator(a, b, orderBy) {
@@ -47,7 +46,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -64,13 +63,55 @@ function stableSort(array, comparator) {
 
 /* Hard coded column headers */
 const headCells = [
-  { id: 'type', color: 'secondary', align: 'center', disablePadding: true, label: 'Type' },
-  { id: 'title', color: 'secondary', align: 'center', disablePadding: true, label: 'Title' },
-  { id: 'results', color: 'secondary', align: 'center', disablePadding: false, label: 'Result' },
-  { id: 'author', color: 'secondary', align: 'center', disablePadding: false, label: 'Author' },
-  { id: 'date', color: 'secondary', align: 'center', disablePadding: false, label: 'Year' },
-  { id: 'url', color: 'secondary', align: 'center', disablePadding: false, label: 'URL' },
-  { id: 'info', color: 'secondary', align: 'center', disablePadding: false, label: 'Info' }
+  {
+    id: "type",
+    color: "secondary",
+    align: "center",
+    disablePadding: true,
+    label: "Type",
+  },
+  {
+    id: "title",
+    color: "secondary",
+    align: "center",
+    disablePadding: true,
+    label: "Title",
+  },
+  {
+    id: "results",
+    color: "secondary",
+    align: "center",
+    disablePadding: false,
+    label: "Result",
+  },
+  {
+    id: "author",
+    color: "secondary",
+    align: "center",
+    disablePadding: false,
+    label: "Author",
+  },
+  {
+    id: "date",
+    color: "secondary",
+    align: "center",
+    disablePadding: false,
+    label: "Year",
+  },
+  {
+    id: "url",
+    color: "secondary",
+    align: "center",
+    disablePadding: false,
+    label: "URL",
+  },
+  {
+    id: "info",
+    color: "secondary",
+    align: "center",
+    disablePadding: false,
+    label: "Info",
+  },
 ];
 
 function ArticleTableHead(props) {
@@ -86,20 +127,18 @@ function ArticleTableHead(props) {
           <TableCell
             key={headCell.id}
             align={headCell.align}
-            padding={headCell.disablePadding ? 'none' : 'default'}
+            padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
-              <Typography color={headCell.color}>
-                {headCell.label}
-              </Typography>
+              <Typography color={headCell.color}>{headCell.label}</Typography>
               {orderBy === headCell.id ? (
                 <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </span>
               ) : null}
             </TableSortLabel>
@@ -113,35 +152,34 @@ function ArticleTableHead(props) {
 ArticleTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
   },
   paper: {
-    width: '100%',
+    width: "100%",
     marginBottom: theme.spacing(2),
   },
   table: {
     minWidth: 750,
   },
-  //fixing table height allows for vertical scroll bar and sticky headers 
-  container : {
+  //fixing table height allows for vertical scroll bar and sticky headers
+  container: {
     maxHeight: 600,
   },
   visuallyHidden: {
     border: 0,
-    clip: 'rect(0 0 0 0)',
+    clip: "rect(0 0 0 0)",
     height: 1,
     margin: -1,
-    overflow: 'hidden',
+    overflow: "hidden",
     padding: 0,
-    position: 'absolute',
+    position: "absolute",
     top: 20,
     width: 1,
   },
@@ -149,18 +187,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ArticleTable(props) {
   const classes = useStyles();
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("calories");
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
- /*  The array of articles to display */
+  /*  The array of articles to display */
   const rows = props.ArticlesArray;
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
@@ -177,8 +215,9 @@ export default function ArticleTable(props) {
     setDense(event.target.checked);
   };
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-  
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -186,7 +225,7 @@ export default function ArticleTable(props) {
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={dense ? "small" : "medium"}
             aria-label="article table"
             stickyHeader
           >
@@ -201,31 +240,37 @@ export default function ArticleTable(props) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-
-                  return (
-                    row.results.split(";").map((result, index) => (
-                    <TableRow
-                      hover
-                      tabIndex={-1}
-                      key={row.name}
-                    >
+                  return row.results.split(";").map((result, index) => (
+                    <TableRow hover tabIndex={-1} key={row.name}>
                       <TableCell align="left">{row.type}</TableCell>
                       <TableCell align="left">{row.title}</TableCell>
-                      <TableCell style={{whiteSpace: "pre"}} align="right">{result}</TableCell>
+                      <TableCell style={{ whiteSpace: "pre" }} align="right">
+                        {result}
+                      </TableCell>
                       <TableCell align="right">{row.author}</TableCell>
-                      <TableCell align="right">{new Date(row.date).getFullYear()}</TableCell> 
+                      <TableCell align="right">
+                        {new Date(row.date).getFullYear()}
+                      </TableCell>
                       <TableCell align="center">
-                        <Button color="secondary" //variant="contained"
-                        onClick={() => window.open(row.url, "_blank")}> Link
+                        <Button
+                          color="secondary" //variant="contained"
+                          onClick={() => window.open(row.url, "_blank")}
+                        >
+                          {" "}
+                          Link
                         </Button>
                       </TableCell>
                       <TableCell align="center">
-                        <Button color="primary" //variant="contained"
-                            onClick={() => window.open(row.url, "_blank")}> Info
+                        <Button
+                          color="primary" //variant="contained"
+                          onClick={() => window.open(row.url, "_blank")}
+                        >
+                          {" "}
+                          Info
                         </Button>
                       </TableCell>
                     </TableRow>
-                  )));
+                  ));
                 })}
 
               {emptyRows > 0 && (

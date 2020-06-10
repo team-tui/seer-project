@@ -1,17 +1,11 @@
 import React, { Component } from "react";
-import API from '../utils/API';
-
+import API from "../utils/API";
 import withStyles from "@material-ui/styles/withStyles";
 import { withRouter } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Topbar from "./Topbar";
-import Button from "@material-ui/core/Button";
-import styles from "./styles/Styles"
-import InstructionDialog from "./dialogs/InstructionDialog";
-
+import styles from "./styles/Styles";
 
 class AddArticle extends Component {
   constructor(props) {
@@ -26,51 +20,49 @@ class AddArticle extends Component {
     this.newTutorial = this.newTutorial.bind(this);
 
     this.state = {
-
-
-        title: "",
-        author: "",
-        date: "",
-        results: "",
-        url: "",
-        status: {state : "SUBMITTED"},
-        type: ""
+      title: "",
+      author: "",
+      date: "",
+      results: "",
+      url: "",
+      status: { state: "SUBMITTED" },
+      type: "",
     };
   }
 
   onChangeTitle(e) {
     this.setState({
-      title: e.target.value
+      title: e.target.value,
     });
   }
 
-   onChangeResults(e) {
+  onChangeResults(e) {
     this.setState({
-      results: e.target.value
+      results: e.target.value,
     });
-  } 
+  }
 
   onChangeAuthor(e) {
     this.setState({
-      author: e.target.value
+      author: e.target.value,
     });
   }
 
   onChangeDate(e) {
     this.setState({
-      date: e.target.value
+      date: e.target.value,
     });
   }
 
   onChangeUrl(e) {
     this.setState({
-      url: e.target.value
+      url: e.target.value,
     });
   }
 
   onChangeType(e) {
     this.setState({
-      type: e.target.value
+      type: e.target.value,
     });
   }
 
@@ -82,11 +74,11 @@ class AddArticle extends Component {
       date: this.state.date,
       url: this.state.url,
       status: this.state.status,
-      type: this.state.type
+      type: this.state.type,
     };
 
     API.create(data)
-      .then(response => {
+      .then((response) => {
         this.setState({
           title: response.data.title,
           author: response.data.author,
@@ -94,11 +86,11 @@ class AddArticle extends Component {
           date: response.data.date,
           url: response.data.url,
           status: response.data.status,
-          type: response.data.type
+          type: response.data.type,
         });
         console.log(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
@@ -111,16 +103,16 @@ class AddArticle extends Component {
       date: "",
       url: "",
       status: "SUBMITTED",
-      type: ""
+      type: "",
     });
   }
 
   render() {
-    const { classes, onRequestSort} = this.props;
+    const { classes } = this.props;
     const currentPath = this.props.location.pathname;
 
     return (
-        <React.Fragment>
+      <React.Fragment>
         <CssBaseline />
         {/* Menu */}
         <Topbar currentPath={currentPath} />
@@ -133,108 +125,111 @@ class AddArticle extends Component {
               container
               className={classes.grid}
             >
+              <div className="submit-form">
+                {this.state.submitted ? (
+                  <div>
+                    <h4>You submitted successfully!</h4>
+                    <button
+                      className="btn btn-success"
+                      onClick={this.newTutorial}
+                    >
+                      Add
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="form-group">
+                      <label htmlFor="type">Type</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="type"
+                        required
+                        value={this.state.type}
+                        onChange={this.onChangeType}
+                        name="type"
+                      />
+                    </div>
 
+                    <div className="form-group">
+                      <label htmlFor="title">Title</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="title"
+                        required
+                        value={this.state.title}
+                        onChange={this.onChangeTitle}
+                        name="title"
+                      />
+                    </div>
 
-        <div className="submit-form">
-          {this.state.submitted ? (
-            <div>
-              <h4>You submitted successfully!</h4>
-              <button className="btn btn-success" onClick={this.newTutorial}>
-                Add
-              </button>
-            </div>
-          ) : (
-            <div>
-              <div className="form-group">
-                <label htmlFor="type">Type</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="type"
-                  required
-                  value={this.state.type}
-                  onChange={this.onChangeType}
-                  name="type"
-                />
+                    <div className="form-group">
+                      <label htmlFor="description">Result</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="description"
+                        required
+                        value={this.state.description}
+                        onChange={this.onChangeDescription}
+                        name="description"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="description">Author</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="author"
+                        required
+                        value={this.state.author}
+                        onChange={this.onChangeAuthor}
+                        name="author"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="date">Date of Publication</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        id="date"
+                        required
+                        value={this.state.date}
+                        onChange={this.onChangeDate}
+                        name="date"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="url">URL</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="url"
+                        required
+                        value={this.state.url}
+                        onChange={this.onChangeUrl}
+                        name="url"
+                      />
+                    </div>
+
+                    <button
+                      onClick={this.saveTutorial}
+                      className="btn btn-success"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                )}
               </div>
-
-              <div className="form-group">
-                <label htmlFor="title">Title</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="title"
-                  required
-                  value={this.state.title}
-                  onChange={this.onChangeTitle}
-                  name="title"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="description">Result</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="description"
-                  required
-                  value={this.state.description}
-                  onChange={this.onChangeDescription}
-                  name="description"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="description">Author</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="author"
-                  required
-                  value={this.state.author}
-                  onChange={this.onChangeAuthor}
-                  name="author"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="date">Date of Publication</label>
-                <input
-                  type="date"
-                  className="form-control"
-                  id="date"
-                  required
-                  value={this.state.date}
-                  onChange={this.onChangeDate}
-                  name="date"
-                />
-              </div>
-
-
-              <div className="form-group">
-                <label htmlFor="url">URL</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="url"
-                  required
-                  value={this.state.url}
-                  onChange={this.onChangeUrl}
-                  name="url"
-                />
-              </div>
-
-              <button onClick={this.saveTutorial} className="btn btn-success">
-                Submit
-              </button>
-            </div>
-          )}
+            </Grid>
+          </Grid>
         </div>
-        </Grid>
-              </Grid>
-              </div>
-        </React.Fragment>
-      );     
-    }
+      </React.Fragment>
+    );
   }
-  export default withRouter(withStyles(styles)(AddArticle));
+}
+export default withRouter(withStyles(styles)(AddArticle));
