@@ -79,7 +79,7 @@ class SearchPage extends Component {
   }
 
   retrieveArticles() {
-    API.getBooks()
+    API.getArticles()
       .then(response => {
         this.setState({
           articles: response.data

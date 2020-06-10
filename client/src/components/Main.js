@@ -15,7 +15,7 @@ class Main extends Component {
   state = {
     learnMoredialog: false,
     getStartedDialog: false,
-    books: [],
+    articles: [],
     title: '',
     author: ''
 

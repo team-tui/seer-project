@@ -11,7 +11,7 @@ describe('*********** ARTICLES ***********', () => {
         it('Should get an array of articles', (done) => {
             chai
                 .request(app)
-                .get('/api/books')
+                .get('/api/articles')
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.body.should.be.a('array')
@@ -33,7 +33,7 @@ describe('*********** ARTICLES ***********', () => {
             }
             chai
                 .request(app)
-                .post('/api/books')
+                .post('/api/articles')
                 .send(article)
                 .end((err, res) => {
                     res.should.have.status(200)
@@ -55,7 +55,7 @@ describe('*********** ARTICLES ***********', () => {
         it('Should return article called Mocha Article', (done) => {
             chai
                 .request(app)
-                .get('/api/books/' + id)
+                .get('/api/articles/' + id)
                 .end((err, res) => {
                     res.body.should.be.a.property('_id')
                     res.body.should.be.a.property('title')
@@ -69,13 +69,13 @@ describe('*********** ARTICLES ***********', () => {
 
     describe('/PATCH Request should update an article', () => {
         it('Should change author of Mocha Article but return origial author', (done) => {
-            const patchbook = {
+            const patcharticle = {
                 author: "New Author"
             }
             chai
                 .request(app)
-                .put('/api/books/' + id)
-                .send(patchbook)
+                .put('/api/articles/' + id)
+                .send(patcharticle)
                 .end((err, res) => {
                     res.body.should.be.a.property('_id')
                     res.body.should.be.a.property('title')
@@ -90,7 +90,7 @@ describe('*********** ARTICLES ***********', () => {
         it('Should remove article called Mocha Article', (done) => {
             chai
                 .request(app)
-                .delete('/api/books/' + id)
+                .delete('/api/articles/' + id)
                 .end((err, res) => {
                     res.body.should.be.a.property('_id')
                     res.body.should.be.a.property('title')

@@ -1,4 +1,4 @@
-const Book = require('../models/Books');
+const article = require('../models/articles');
 
 module.exports = {
     findAll: function (req, res) {
@@ -10,31 +10,31 @@ module.exports = {
                                     /* author: {$regex: new RegExp(author), $options: "i"}, */
                                     $and: [{date: {$lte: dateTo}},{date: {$gte: dateFrom}}]} 
                                      : {};
-        //Book.find(title ? {title: title+"/i"} : {}) //Couldn't get to work
-        Book.find(condition)
-        //Book.find(req.query) //Original
-            .then(books => res.json(books))
+        //article.find(title ? {title: title+"/i"} : {}) //Couldn't get to work
+        article.find(condition)
+        //article.find(req.query) //Original
+            .then(articles => res.json(articles))
             .catch(err => res.status(422).json(err));
     },
     findById: function (req, res) {
-        Book.findById(req.params.id)
-            .then(book => res.json(book))
+        article.findById(req.params.id)
+            .then(article => res.json(article))
             .catch(err => res.status(422).json(err));
     },
     create: function (req, res) {
-        Book.create(req.body)
-            .then(newBook => res.json(newBook))
+        article.create(req.body)
+            .then(newarticle => res.json(newarticle))
             .catch(err => res.status(422).json(err));
     },
     update: function (req, res) {
-        Book.findOneAndUpdate({ _id: req.params.id }, req.body)
-            .then(book => res.json(book))
+        article.findOneAndUpdate({ _id: req.params.id }, req.body)
+            .then(article => res.json(article))
             .catch(err => res.status(422).json(err));
     },
     remove: function (req, res) {
-        Book.findById({ _id: req.params.id })
-            .then(book => book.remove())
-            .then(allbooks => res.json(allbooks))
+        article.findById({ _id: req.params.id })
+            .then(article => article.remove())
+            .then(allarticles => res.json(allarticles))
             .catch(err => res.status(422).json(err));
     }
 };
