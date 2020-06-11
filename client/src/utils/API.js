@@ -1,41 +1,45 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-    // Gets all books
-    getBooks: function () {
-        return axios.get('/api/books');
-    },
-    // Gets the book with the given id
-    getBook: function (id) {
-        return axios.get('/api/books/' + id);
-    },
-    // Deletes the book with the given id
-    deleteBook: function (id) {
-        return axios.delete('/api/books/' + id);
-    },
-    // Saves a book to the database
-    saveBook: function (bookData) {
-        return axios.post('/api/books', bookData);
-    },
+  // Gets all articles
+  getArticles: function () {
+    return axios.get("/api/articles");
+  },
+  // Gets the article with the given id
+  getArticle: function (id) {
+    return axios.get("/api/articles/" + id);
+  },
+  // Deletes the article with the given id
+  deleteArticle: function (id) {
+    return axios.delete("/api/articles/" + id);
+  },
+  // Saves a article to the database
+  saveArticle: function (articleData) {
+    return axios.post("/api/articles", articleData);
+  },
 
-    // Deletes all books
-    deleteAllBooks: function (id) {
-        return axios.delete('/api/books/');
-    },
+  // Deletes all articles
+  deleteAllArticles: function (id) {
+    return axios.delete("/api/articles/");
+  },
 
-    findByTitle (title) {
-        return axios.create({headers: {"Content-type": "application/json"}
-    }).get(`/api/books?title=${title}`);
+  findByTitle(title) {
+    return axios
+      .create({ headers: { "Content-type": "application/json" } })
+      .get(`/api/articles?title=${title}`);
+  },
+
+  findByTitle2: function (title, dateFrom, dateTo) {
+    return axios.get("/api/articles", {
+      params: {
+        title: title,
+        /* author: author, */ dateFrom: dateFrom,
+        dateTo: dateTo,
       },
+    });
+  },
 
-    findByTitle2: function (title, dateFrom, dateTo) {
-        return axios.get('/api/books', 
-        {params: { title: title,  /* author: author, */ dateFrom: dateFrom, dateTo: dateTo} })
-    },
-
-    create(data) {
-        return axios.post("/api/books", data);
-      }
-
-
+  create(data) {
+    return axios.post("/api/articles", data);
+  },
 };

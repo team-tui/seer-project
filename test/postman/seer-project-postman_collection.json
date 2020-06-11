@@ -6,12 +6,12 @@
 	},
 	"item": [
 		{
-			"name": "GET All Books",
+			"name": "GET All articles",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/books",
+					"raw": "http://localhost:5000/api/articles",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -19,14 +19,14 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"books"
+						"articles"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET All Books Copy",
+			"name": "GET All articles Copy",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -41,7 +41,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/books/5ecf2d9aeb55a03e48f9184c",
+					"raw": "http://localhost:5000/api/articles/5ecf2d9aeb55a03e48f9184c",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -49,7 +49,7 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"books",
+						"articles",
 						"5ecf2d9aeb55a03e48f9184c"
 					]
 				}
@@ -57,7 +57,7 @@
 			"response": []
 		},
 		{
-			"name": "POST Add New Book",
+			"name": "POST Add New article",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
 					"content-type": true
@@ -77,7 +77,7 @@
 					"urlencoded": [
 						{
 							"key": "title",
-							"value": "Test Book",
+							"value": "Test article",
 							"type": "text"
 						},
 						{
@@ -117,7 +117,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/books",
+					"raw": "http://localhost:5000/api/articles",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -125,14 +125,14 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"books"
+						"articles"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE Remove a Book",
+			"name": "DELETE Remove a article",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
 					"content-type": true
@@ -148,7 +148,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:5000/api/books/5ecf2d9aeb55a03e48f9184c",
+					"raw": "http://localhost:5000/api/articles/5ecf2d9aeb55a03e48f9184c",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -156,7 +156,7 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"books",
+						"articles",
 						"5ecf2d9aeb55a03e48f9184c"
 					]
 				}
