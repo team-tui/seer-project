@@ -47,8 +47,7 @@ class SearchPage extends Component {
       dateFrom: "",
       dateTo: "",
       searchAuthor: "",
-      userDesctiption: '',
-      test: ''
+      userDesctiption: ''
     };
   }
 
@@ -135,7 +134,7 @@ class SearchPage extends Component {
 
                     <SearchForm
                       input={args}
-                      onClick={''/* this.getbook() */} >
+                      onClick={''} >
                     </SearchForm>
 
                   </Paper>
