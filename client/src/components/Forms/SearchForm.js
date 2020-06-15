@@ -16,12 +16,6 @@ export default function SearchForm(props) {
         console.log("searchParameters", searchParameters);
     };
 
-    const items = [
-        { value: 1, primaryText: 'Never' },
-        { value: 2, primaryText: 'Every Night' },
-        { value: 3, primaryText: 'Weeknights' },
-    ]
-
 
     const handleInputChange = (index, event) => {
         const values = [...searchParameters];
@@ -108,7 +102,6 @@ export default function SearchForm(props) {
                                 }}>
                                 <label htmlFor="nameOfField"></label>
                                 <_nameOfFields
-                                    inputArray={items}
                                     type="text"
                                     className="form-control"
                                     id="nameOfField"
@@ -129,9 +122,9 @@ export default function SearchForm(props) {
                     </Button>
                 </div>
                 <br />
-                <pre>
+                {/* <pre>
                     {JSON.stringify(searchParameters, null, 2)}
-                </pre>
+                </pre> */}
 
 
             </form>

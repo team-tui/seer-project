@@ -23,19 +23,24 @@ export default {
         return axios.delete('/api/books/');
     },
 
-     findByTitle (title, author) {
-        return axios.create({headers: {"Content-type": "application/json"}
-    }).get(`/api/books?title=${title}&author=${author}`);
-      }, 
+    findByTitle(title, author) {
+        return axios.create({
+            headers: { "Content-type": "application/json" }
+        }).get(`/api/books?title=${title}&author=${author}`);
+    },
 
     findByTitle2: function (title, author, dateFrom, dateTo) {
-        return axios.get('/api/books', 
-        {params: { title: title,  author: author, dateFrom: dateFrom, dateTo: dateTo} })
+        return axios.get('/api/books',
+            { params: { title: title, author: author, dateFrom: dateFrom, dateTo: dateTo } })
     },
 
     create(data) {
         return axios.post("/api/books", data);
-      }
+    },
+
+    getUserSearch(dataArray) {
+        return
+    }
 
 
 };

@@ -27,6 +27,9 @@ import styles from "./styles/Styles"
 import 'react-day-picker/lib/style.css';
 import SearchForm from './Forms/SearchForm';
 import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import DatePicker from './Forms/DatePicker';
+
 
 
 class SearchPage extends Component {
@@ -43,7 +46,9 @@ class SearchPage extends Component {
       args: [{ nameOfFeild: "", operator: "", value: "" }],
       dateFrom: "",
       dateTo: "",
-      searchAuthor: ""
+      searchAuthor: "",
+      userDesctiption: '',
+      test: ''
     };
   }
 
@@ -71,6 +76,8 @@ class SearchPage extends Component {
         console.log(e);
       });
   }
+
+
 
   searchTitle() {
     API.findByTitle2(this.state.searchTitle, this.state.searchAuthor, this.state.dateFrom, this.state.dateTo)
@@ -114,9 +121,21 @@ class SearchPage extends Component {
                       SEARCH
                         </Typography>
 
-                    <SearchForm 
-                    input={args}
-                    onClick={''/* this.retrieveArticles() */} >
+                    <TextField
+                      id="descr_search"
+                      type="search"
+                      style={{ margin: 8 }}
+                      placeholder="Enter description here..."
+                      fullWidth
+                      margin="normal"
+                      InputLabelProps={{ shrink: true }}
+                    />
+
+                    <DatePicker></DatePicker>
+
+                    <SearchForm
+                      input={args}
+                      onClick={''/* this.getbook() */} >
                     </SearchForm>
 
                   </Paper>
